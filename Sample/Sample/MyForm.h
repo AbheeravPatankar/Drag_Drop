@@ -79,9 +79,9 @@ namespace $safeprojectname$ {
 			// 
 			this->button1->AllowDrop = true;
 			this->button1->BackColor = System::Drawing::Color::Gold;
-			this->button1->Location = System::Drawing::Point(39, 141);
+			this->button1->Location = System::Drawing::Point(49, 37);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(163, 143);
+			this->button1->Size = System::Drawing::Size(160, 135);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"button1";
 			this->button1->UseVisualStyleBackColor = false;
@@ -99,7 +99,7 @@ namespace $safeprojectname$ {
 			// 
 			this->tableLayoutPanel2->AllowDrop = true;
 			this->tableLayoutPanel2->BackColor = System::Drawing::Color::ForestGreen;
-			this->tableLayoutPanel2->CellBorderStyle = System::Windows::Forms::TableLayoutPanelCellBorderStyle::OutsetDouble;
+			this->tableLayoutPanel2->CellBorderStyle = System::Windows::Forms::TableLayoutPanelCellBorderStyle::Outset;
 			this->tableLayoutPanel2->ColumnCount = 5;
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 				50)));
@@ -108,9 +108,9 @@ namespace $safeprojectname$ {
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
 				169)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
-				176)));
+				173)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
-				171)));
+				182)));
 			this->tableLayoutPanel2->Location = System::Drawing::Point(264, 2);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
 			this->tableLayoutPanel2->RowCount = 5;
@@ -151,15 +151,19 @@ namespace $safeprojectname$ {
 
 
 	private: System::Void tableLayoutPanel2_dragDrop(System::Object^ sender, System::Windows::Forms::DragEventArgs^ e) {
+		
 		Button^ button = gcnew Button();
 		button->BackColor = System::Drawing::Color::Gold;
-		button->Location = this->PointToClient(System::Drawing::Point(e->X - 200, e->Y));
+		button->Location = System::Drawing::Point(e->X, e->Y);
+		int row = e->X / 266;
+		int column = e->Y / 200;
 		button->Name = L"button1";
 		button->Size = System::Drawing::Size(165, 135);
 		button->TabIndex = 0;
 		button->Text = L"button1";
 		button->UseVisualStyleBackColor = false;
-		this->tableLayoutPanel2->Controls->Add(button);
+
+		this->tableLayoutPanel2->Controls->Add(button,row,column);
 	}
 private: System::Void panel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
