@@ -34,8 +34,9 @@ namespace $safeprojectname$ {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Panel^ panel1;
+	
 	protected:
+	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Control^ activeControl;
@@ -43,6 +44,7 @@ namespace $safeprojectname$ {
 	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ button;
 
 	private:
 		/// <summary>
@@ -57,7 +59,6 @@ namespace $safeprojectname$ {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
@@ -86,10 +87,11 @@ namespace $safeprojectname$ {
 			// button4
 			// 
 			this->button4->AllowDrop = true;
-			this->button4->BackColor = System::Drawing::Color::Salmon;
-			//this->button4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"road-with-broken-line.png")));
+			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
+			this->button4->BackColor = System::Drawing::Color::Gray;
 			this->button4->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->button4->Location = System::Drawing::Point(31, 510);
+			this->button4->Location = System::Drawing::Point(31, 504);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(167, 75);
 			this->button4->TabIndex = 3;
@@ -97,14 +99,16 @@ namespace $safeprojectname$ {
 			this->button4->Text = L"ROAD";
 			this->button4->TextAlign = System::Drawing::ContentAlignment::TopLeft;
 			this->button4->UseVisualStyleBackColor = false;
+			this->button4->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
 			// 
 			// button3
 			// 
 			this->button3->AllowDrop = true;
-			this->button3->BackColor = System::Drawing::Color::Salmon;
-			//this->button3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"no-parking.png")));
+			this->button3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
+			this->button3->BackColor = System::Drawing::Color::Red;
 			this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->button3->Location = System::Drawing::Point(31, 369);
+			this->button3->Location = System::Drawing::Point(31, 363);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(167, 75);
 			this->button3->TabIndex = 2;
@@ -112,12 +116,14 @@ namespace $safeprojectname$ {
 			this->button3->Text = L"NO PARKING";
 			this->button3->TextAlign = System::Drawing::ContentAlignment::TopLeft;
 			this->button3->UseVisualStyleBackColor = false;
+			this->button3->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
 			// 
 			// button2
 			// 
 			this->button2->AllowDrop = true;
-			this->button2->BackColor = System::Drawing::Color::Salmon;
-			//this->button2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"motor-sports.png")));
+			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
+			this->button2->BackColor = System::Drawing::Color::LightGreen;
 			this->button2->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->button2->Location = System::Drawing::Point(31, 218);
 			this->button2->Name = L"button2";
@@ -127,14 +133,16 @@ namespace $safeprojectname$ {
 			this->button2->Text = L"2 WHEELER";
 			this->button2->TextAlign = System::Drawing::ContentAlignment::TopLeft;
 			this->button2->UseVisualStyleBackColor = false;
+			this->button2->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
 			// 
 			// button1
 			// 
 			this->button1->AllowDrop = true;
-			this->button1->BackColor = System::Drawing::Color::Salmon;
-			//this->button1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"sport-car.png")));
+			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
+			this->button1->BackColor = System::Drawing::Color::LightGreen;
 			this->button1->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->button1->Location = System::Drawing::Point(31, 87);
+			this->button1->Location = System::Drawing::Point(31, 82);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(167, 75);
 			this->button1->TabIndex = 0;
@@ -178,21 +186,34 @@ namespace $safeprojectname$ {
 	{
 			e->Effect = DragDropEffects::Copy;	
 	}
-	private: System::Void button1_mouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
+	private: System::Void button1_mouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
-		button1->DoDragDrop(button1, DragDropEffects::Copy);
+		button = safe_cast<Button^>(sender);
+		button->DoDragDrop(button->Text, DragDropEffects::Copy);
 	}
 
 	private: System::Void panel2_dragDrop(System::Object^ sender, System::Windows::Forms::DragEventArgs^ e) 
 	{		
-		Button^ button = gcnew Button();
-		button->BackColor = System::Drawing::Color::Cyan;
+		button = gcnew Button();
 		button->Location = this->PointToClient(System::Drawing::Point(e->X - 200, e->Y));
 		//this->button1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.Image")));
-		button->Name = L"button1";
-		button->Size = System::Drawing::Size(184, 71);
+		button->Name = L"buttonX";
+		button->Size = System::Drawing::Size(140, 60);
 		button->TabIndex = 0;
-		button->Text = L"4 WHEELER";
+		button->Text = e->Data->GetData(DataFormats::Text)->ToString();
+		button->TextAlign = System::Drawing::ContentAlignment::TopLeft;
+		if (button->Text == "ROAD")
+		{
+			button->BackColor = System::Drawing::Color::Gray;
+		}
+		else if (button->Text == "NO PARKING")
+		{
+			button->BackColor = System::Drawing::Color::Red;
+		}
+		else
+		{
+			button->BackColor = System::Drawing::Color::LightGreen;
+		}
 		button->UseVisualStyleBackColor = false;
 		button->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button_mouseDown);
 		button->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button_mouseMove);
