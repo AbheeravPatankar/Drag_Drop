@@ -1,4 +1,6 @@
 ﻿  MyForm.cpp
-D:\Srujan\Coding\github\Drag_Drop\Sample\Sample\MyForm.cpp(8,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+C:\Users\91878\Documents\GitHub\Drag_Drop\Sample\Sample\MyForm.cpp(8,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+  .NETFramework,Version=v4.8.AssemblyAttributes.cpp
+  Generating Code...
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  Sample.vcxproj -> D:\Srujan\Coding\github\Drag_Drop\Sample\x64\Debug\Sample.exe
+  Sample.vcxproj -> C:\Users\91878\Documents\GitHub\Drag_Drop\Sample\x64\Debug\Sample.exe
