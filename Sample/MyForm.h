@@ -46,7 +46,9 @@ namespace $safeprojectname$ {
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button;
 
+
 	private:
+		TextBox^ textbox;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -90,6 +92,8 @@ namespace $safeprojectname$ {
 			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button4->BackColor = System::Drawing::Color::Gray;
+			this->button4->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->button4->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->button4->Location = System::Drawing::Point(31, 504);
 			this->button4->Name = L"button4";
@@ -97,7 +101,6 @@ namespace $safeprojectname$ {
 			this->button4->TabIndex = 3;
 			this->button4->Tag = L"";
 			this->button4->Text = L"ROAD";
-			this->button4->TextAlign = System::Drawing::ContentAlignment::TopLeft;
 			this->button4->UseVisualStyleBackColor = false;
 			this->button4->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
 			// 
@@ -107,6 +110,8 @@ namespace $safeprojectname$ {
 			this->button3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button3->BackColor = System::Drawing::Color::Red;
+			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->button3->Location = System::Drawing::Point(31, 363);
 			this->button3->Name = L"button3";
@@ -114,7 +119,6 @@ namespace $safeprojectname$ {
 			this->button3->TabIndex = 2;
 			this->button3->Tag = L"";
 			this->button3->Text = L"NO PARKING";
-			this->button3->TextAlign = System::Drawing::ContentAlignment::TopLeft;
 			this->button3->UseVisualStyleBackColor = false;
 			this->button3->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
 			// 
@@ -124,6 +128,9 @@ namespace $safeprojectname$ {
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button2->BackColor = System::Drawing::Color::LightGreen;
+			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button2->ForeColor = System::Drawing::Color::LightCoral;
 			this->button2->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->button2->Location = System::Drawing::Point(31, 218);
 			this->button2->Name = L"button2";
@@ -131,7 +138,6 @@ namespace $safeprojectname$ {
 			this->button2->TabIndex = 1;
 			this->button2->Tag = L"";
 			this->button2->Text = L"2 WHEELER";
-			this->button2->TextAlign = System::Drawing::ContentAlignment::TopLeft;
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
 			// 
@@ -141,14 +147,16 @@ namespace $safeprojectname$ {
 			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button1->BackColor = System::Drawing::Color::LightGreen;
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button1->ForeColor = System::Drawing::Color::Teal;
 			this->button1->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->button1->Location = System::Drawing::Point(31, 82);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(167, 75);
 			this->button1->TabIndex = 0;
-			this->button1->Tag = L"";
+			this->button1->Tag = L"hello";
 			this->button1->Text = L"4 WHEELER";
-			this->button1->TextAlign = System::Drawing::ContentAlignment::TopLeft;
 			this->button1->UseVisualStyleBackColor = false;
 			this->button1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
 			// 
@@ -158,8 +166,7 @@ namespace $safeprojectname$ {
 			this->panel2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->panel2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->panel2->BackColor = System::Drawing::Color::Azure;
 			this->panel2->Location = System::Drawing::Point(264, 2);
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(874, 757);
@@ -189,19 +196,30 @@ namespace $safeprojectname$ {
 	private: System::Void button1_mouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
 		button = safe_cast<Button^>(sender);
+		// textbox = safe_cast<TextBox^>(sender);
 		button->DoDragDrop(button->Text, DragDropEffects::Copy);
 	}
+     
+	private: System::Void change_button_text(Button^ button, TextBox^ textbox)
+	{
+		
 
+	}
 	private: System::Void panel2_dragDrop(System::Object^ sender, System::Windows::Forms::DragEventArgs^ e) 
 	{		
 		button = gcnew Button();
+		
+		
 		button->Location = this->PointToClient(System::Drawing::Point(e->X - 200, e->Y));
+		
 		//this->button1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.Image")));
 		button->Name = L"buttonX";
 		button->Size = System::Drawing::Size(140, 60);
 		button->TabIndex = 0;
 		button->Text = e->Data->GetData(DataFormats::Text)->ToString();
-		button->TextAlign = System::Drawing::ContentAlignment::TopLeft;
+		button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+		button->Font = gcnew System::Drawing::Font("Microsoft YaHei UI", 14, FontStyle::Bold);
+
 		if (button->Text == "ROAD")
 		{
 			button->BackColor = System::Drawing::Color::Gray;
@@ -210,15 +228,31 @@ namespace $safeprojectname$ {
 		{
 			button->BackColor = System::Drawing::Color::Red;
 		}
-		else
+		else if (button->Text == "4 WHEELER")
 		{
+			textbox = gcnew TextBox();
+			textbox->Location = this->PointToClient(System::Drawing::Point(e->X - 160, e->Y - 20));
+			button->Click += gcnew System::EventHandler(this, &MyForm::button_Click);
+			button->ForeColor = System::Drawing::Color::Teal;
 			button->BackColor = System::Drawing::Color::LightGreen;
 		}
+		else
+		{
+			textbox = gcnew TextBox();
+			textbox->Location = this->PointToClient(System::Drawing::Point(e->X - 160, e->Y - 20));
+			button->Click += gcnew System::EventHandler(this, &MyForm::button_Click);
+			button->ForeColor = System::Drawing::Color::LightCoral;
+			button->BackColor = System::Drawing::Color::LightGreen;
+		}
+		
+		//textbox->Click += gcnew System::EventHandler(this, &MyForm::t_Click);
+		//textbox->Visible = false;
 		button->UseVisualStyleBackColor = false;
 		button->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button_mouseDown);
 		button->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button_mouseMove);
 		button->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button_mouseUp);
 		this->panel2->Controls->Add(button);
+		this->panel2->Controls->Add(textbox);
 	}
 	private: System::Void button_mouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 	{
@@ -237,6 +271,15 @@ namespace $safeprojectname$ {
 	{
 		activeControl = nullptr;
 	}
+
+private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e) {
+	button->Text = textbox->Text;
+	textbox->Visible = false;
+}
+
+/*private: System::Void textbox_Click(System::Object^ sender, System::EventArgs^ e) {
+	textbox->Visible = false;
+}*/
 };
 }
 
