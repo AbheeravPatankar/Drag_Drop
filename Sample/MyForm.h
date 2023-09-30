@@ -8,6 +8,7 @@ namespace $safeprojectname$ {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	int moveFlag = 0;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -49,7 +50,10 @@ namespace $safeprojectname$ {
 
 	private:
 		TextBox^ textbox;
-		/// <summary>
+	private: System::Windows::Forms::Button^ button5;
+
+
+		   /// <summary>
 		/// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
@@ -67,7 +71,9 @@ namespace $safeprojectname$ {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
+			this->panel2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// panel1
@@ -91,6 +97,7 @@ namespace $safeprojectname$ {
 			this->button4->AllowDrop = true;
 			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->button4->AutoSize = true;
 			this->button4->BackColor = System::Drawing::Color::Gray;
 			this->button4->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -167,12 +174,24 @@ namespace $safeprojectname$ {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel2->BackColor = System::Drawing::Color::Azure;
+			this->panel2->Controls->Add(this->button5);
 			this->panel2->Location = System::Drawing::Point(264, 2);
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(874, 757);
 			this->panel2->TabIndex = 0;
 			this->panel2->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &MyForm::panel2_dragDrop);
 			this->panel2->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &MyForm::panel2_dragEnter);
+			// 
+			// button5
+			// 
+			this->button5->BackColor = System::Drawing::Color::DeepSkyBlue;
+			this->button5->Location = System::Drawing::Point(677, 10);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(186, 57);
+			this->button5->TabIndex = 0;
+			this->button5->Text = L"Display";
+			this->button5->UseVisualStyleBackColor = false;
+			this->button5->Click += gcnew System::EventHandler(this, &MyForm::map_display);
 			// 
 			// MyForm
 			// 
@@ -185,6 +204,8 @@ namespace $safeprojectname$ {
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
+			this->panel2->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
@@ -256,11 +277,14 @@ namespace $safeprojectname$ {
 	}
 	private: System::Void button_mouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 	{
-		if (activeControl == nullptr)
-			return;
-		System::Drawing::Point location = activeControl->Location;
-		location.Offset(e->Location.X - prevPosition.X, e->Location.Y - prevPosition.Y);
-		activeControl->Location = location;
+		if (moveFlag == 0)
+		{
+			if (activeControl == nullptr)
+				return;
+			System::Drawing::Point location = activeControl->Location;
+			location.Offset(e->Location.X - prevPosition.X, e->Location.Y - prevPosition.Y);
+			activeControl->Location = location;
+		}
 	}
 	private: System::Void button_mouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
@@ -273,13 +297,28 @@ namespace $safeprojectname$ {
 	}
 
 private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e) {
-	button->Text = textbox->Text;
+	if (button->Text == "4 WHEELER" || button->Text == "2 WHEELER")
+		button->Text = textbox->Text;
 	textbox->Visible = false;
+	delete textbox;
+	if (moveFlag == 1)
+	{
+		Button^ clickedButton = (Button^)sender;
+		if(clickedButton->BackColor == System::Drawing::Color::LightGreen)
+			clickedButton->BackColor = System::Drawing::Color::Crimson;
+		else if(clickedButton->BackColor == System::Drawing::Color::Crimson)
+			clickedButton->BackColor = System::Drawing::Color::LightGreen;
+	}
 }
 
 /*private: System::Void textbox_Click(System::Object^ sender, System::EventArgs^ e) {
 	textbox->Visible = false;
 }*/
+private: System::Void map_display(System::Object^ sender, System::EventArgs^ e) 
+{
+	moveFlag = 1;
+	panel1->Visible = false;
+}
 };
 }
 
