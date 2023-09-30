@@ -5,3 +5,6 @@ D:\Srujan\Coding\github\Drag_Drop\Sample\x64\Debug\Sample.vcxproj.AssemblyRefere
 D:\Srujan\Coding\github\Drag_Drop\Sample\x64\Debug\Sample.vcxproj.SuggestedBindingRedirects.cache
 D:\Srujan\Coding\github\Drag_Drop\Sample\x64\Debug\Sample.MyForm.resources
 D:\Srujan\Coding\github\Drag_Drop\Sample\x64\Debug\Sample.vcxproj.GenerateResource.cache
+C:\Users\91878\Documents\GitHub\Drag_Drop\Sample\x64\Debug\Sample.vcxproj.AssemblyReference.cache
+C:\Users\91878\Documents\GitHub\Drag_Drop\Sample\x64\Debug\Sample.MyForm.resources
+C:\Users\91878\Documents\GitHub\Drag_Drop\Sample\x64\Debug\Sample.vcxproj.GenerateResource.cache
