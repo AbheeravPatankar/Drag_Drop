@@ -49,7 +49,9 @@ namespace $safeprojectname$ {
 
 	private:
 		TextBox^ textbox;
-		/// <summary>
+
+
+		   /// <summary>
 		/// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
@@ -91,6 +93,7 @@ namespace $safeprojectname$ {
 			this->button4->AllowDrop = true;
 			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->button4->AutoSize = true;
 			this->button4->BackColor = System::Drawing::Color::Gray;
 			this->button4->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -185,6 +188,7 @@ namespace $safeprojectname$ {
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -273,8 +277,10 @@ namespace $safeprojectname$ {
 	}
 
 private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e) {
-	button->Text = textbox->Text;
+	if (button->Text == "4 WHEELER" || button->Text == "2 WHEELER")
+		button->Text = textbox->Text;
 	textbox->Visible = false;
+	delete textbox;
 }
 
 /*private: System::Void textbox_Click(System::Object^ sender, System::EventArgs^ e) {
