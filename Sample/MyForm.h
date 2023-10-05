@@ -9,7 +9,7 @@ namespace $safeprojectname$ {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	int moveFlag = 0;
-
+	//waste
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
