@@ -46,11 +46,14 @@ namespace $safeprojectname$ {
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button;
+	Button^ button_to_delete;
 
 
 	private:
 		TextBox^ textbox;
 	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::Button^ button6;
+
 
 
 		   /// <summary>
@@ -72,6 +75,7 @@ namespace $safeprojectname$ {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->SuspendLayout();
@@ -158,7 +162,7 @@ namespace $safeprojectname$ {
 				static_cast<System::Byte>(0)));
 			this->button1->ForeColor = System::Drawing::Color::Teal;
 			this->button1->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->button1->Location = System::Drawing::Point(31, 82);
+			this->button1->Location = System::Drawing::Point(31, 67);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(167, 75);
 			this->button1->TabIndex = 0;
@@ -174,10 +178,11 @@ namespace $safeprojectname$ {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel2->BackColor = System::Drawing::Color::Azure;
+			this->panel2->Controls->Add(this->button6);
 			this->panel2->Controls->Add(this->button5);
 			this->panel2->Location = System::Drawing::Point(264, 2);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(874, 757);
+			this->panel2->Size = System::Drawing::Size(872, 757);
 			this->panel2->TabIndex = 0;
 			this->panel2->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &MyForm::panel2_dragDrop);
 			this->panel2->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &MyForm::panel2_dragEnter);
@@ -192,6 +197,17 @@ namespace $safeprojectname$ {
 			this->button5->Text = L"Display";
 			this->button5->UseVisualStyleBackColor = false;
 			this->button5->Click += gcnew System::EventHandler(this, &MyForm::map_display);
+			// 
+			// button6
+			// 
+			this->button6->BackColor = System::Drawing::Color::Tomato;
+			this->button6->Location = System::Drawing::Point(677, 85);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(186, 57);
+			this->button6->TabIndex = 1;
+			this->button6->Text = L"Delete";
+			this->button6->UseVisualStyleBackColor = false;
+			this->button6->Click += gcnew System::EventHandler(this, &MyForm::delete_control);
 			// 
 			// MyForm
 			// 
@@ -289,18 +305,21 @@ namespace $safeprojectname$ {
 	private: System::Void button_mouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
 		activeControl = dynamic_cast<System::Windows::Forms::Control^>(sender);
+		button_to_delete = (Button^)sender;
 		prevPosition = e->Location;
+		/*if(button_to_delete->Text != "4 WHEELER" && button_to_delete->Text != "2 WHEELER")
+			button_to_delete->DoDragDrop(button_to_delete, DragDropEffects::Move);*/
 	}
 	private: System::Void button_mouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 	{
 		activeControl = nullptr;
 	}
 
-private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e) 
+{
 	if (button->Text == "4 WHEELER" || button->Text == "2 WHEELER")
 		button->Text = textbox->Text;
 	textbox->Visible = false;
-	delete textbox;
 	if (moveFlag == 1)
 	{
 		Button^ clickedButton = (Button^)sender;
@@ -316,8 +335,27 @@ private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e)
 }*/
 private: System::Void map_display(System::Object^ sender, System::EventArgs^ e) 
 {
-	moveFlag = 1;
-	panel1->Visible = false;
+	
+	if (moveFlag == 0)
+	{
+		moveFlag = 1;
+		panel1->Visible = false;
+		button6->Visible = false;
+		button5->Text = "Back";
+	}
+	else
+	{
+		moveFlag = 0;
+		panel1->Visible = true;
+		button6->Visible = true;
+		button5->Text = "Display";
+	}
+}
+
+private: System::Void delete_control(System::Object^ sender, System::EventArgs^ e) 
+{
+	if(moveFlag!=1)
+		delete button_to_delete;
 }
 };
 }
