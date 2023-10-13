@@ -1,4 +1,5 @@
 #pragma once
+#include<iostream>
 
 namespace $safeprojectname$ {
 
@@ -8,7 +9,9 @@ namespace $safeprojectname$ {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace Microsoft::VisualBasic;
 	int moveFlag = 0;
+	int hoverFlag = 0;
 	//waste
 	/// <summary>
 	/// Summary for MyForm
@@ -51,8 +54,11 @@ namespace $safeprojectname$ {
 
 	private:
 		TextBox^ textbox;
+		TextBox^ textbox1;
 	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::Button^ button6;
+
+
 
 
 
@@ -74,8 +80,8 @@ namespace $safeprojectname$ {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
-			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->SuspendLayout();
@@ -103,6 +109,7 @@ namespace $safeprojectname$ {
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button4->AutoSize = true;
 			this->button4->BackColor = System::Drawing::Color::Gray;
+			this->button4->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button4->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button4->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
@@ -121,6 +128,7 @@ namespace $safeprojectname$ {
 			this->button3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button3->BackColor = System::Drawing::Color::Red;
+			this->button3->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
@@ -139,6 +147,7 @@ namespace $safeprojectname$ {
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button2->BackColor = System::Drawing::Color::LightGreen;
+			this->button2->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button2->ForeColor = System::Drawing::Color::LightCoral;
@@ -158,6 +167,7 @@ namespace $safeprojectname$ {
 			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button1->BackColor = System::Drawing::Color::LightGreen;
+			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button1->ForeColor = System::Drawing::Color::Teal;
@@ -170,6 +180,7 @@ namespace $safeprojectname$ {
 			this->button1->Text = L"4 WHEELER";
 			this->button1->UseVisualStyleBackColor = false;
 			this->button1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
+			this->button1->MouseHover += gcnew System::EventHandler(this, &MyForm::button1_mouseHover);
 			// 
 			// panel2
 			// 
@@ -187,17 +198,6 @@ namespace $safeprojectname$ {
 			this->panel2->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &MyForm::panel2_dragDrop);
 			this->panel2->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &MyForm::panel2_dragEnter);
 			// 
-			// button5
-			// 
-			this->button5->BackColor = System::Drawing::Color::DeepSkyBlue;
-			this->button5->Location = System::Drawing::Point(677, 10);
-			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(186, 57);
-			this->button5->TabIndex = 0;
-			this->button5->Text = L"Display";
-			this->button5->UseVisualStyleBackColor = false;
-			this->button5->Click += gcnew System::EventHandler(this, &MyForm::map_display);
-			// 
 			// button6
 			// 
 			this->button6->BackColor = System::Drawing::Color::Tomato;
@@ -208,6 +208,17 @@ namespace $safeprojectname$ {
 			this->button6->Text = L"Delete";
 			this->button6->UseVisualStyleBackColor = false;
 			this->button6->Click += gcnew System::EventHandler(this, &MyForm::delete_control);
+			// 
+			// button5
+			// 
+			this->button5->BackColor = System::Drawing::Color::DeepSkyBlue;
+			this->button5->Location = System::Drawing::Point(677, 10);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(186, 57);
+			this->button5->TabIndex = 0;
+			this->button5->Text = L"Display";
+			this->button5->UseVisualStyleBackColor = false;
+			this->button5->Click += gcnew System::EventHandler(this, &MyForm::map_display);
 			// 
 			// MyForm
 			// 
@@ -269,6 +280,8 @@ namespace $safeprojectname$ {
 		{
 			textbox = gcnew TextBox();
 			textbox->Location = this->PointToClient(System::Drawing::Point(e->X - 160, e->Y - 20));
+			textbox1 = gcnew TextBox();
+			textbox1->Location = this->PointToClient(System::Drawing::Point(e->X - 200, e->Y + 60));
 			button->Click += gcnew System::EventHandler(this, &MyForm::button_Click);
 			button->ForeColor = System::Drawing::Color::Teal;
 			button->BackColor = System::Drawing::Color::LightGreen;
@@ -277,6 +290,10 @@ namespace $safeprojectname$ {
 		{
 			textbox = gcnew TextBox();
 			textbox->Location = this->PointToClient(System::Drawing::Point(e->X - 160, e->Y - 20));
+			textbox1 = gcnew TextBox();
+			textbox1->Location = this->PointToClient(System::Drawing::Point(e->X - 200, e->Y + 60));
+			textbox1->Size.Width = 100;
+			textbox1->Size.Height = 100;
 			button->Click += gcnew System::EventHandler(this, &MyForm::button_Click);
 			button->ForeColor = System::Drawing::Color::LightCoral;
 			button->BackColor = System::Drawing::Color::LightGreen;
@@ -284,12 +301,17 @@ namespace $safeprojectname$ {
 		
 		//textbox->Click += gcnew System::EventHandler(this, &MyForm::t_Click);
 		//textbox->Visible = false;
+		int hoverCount = 0;
 		button->UseVisualStyleBackColor = false;
 		button->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button_mouseDown);
 		button->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button_mouseMove);
 		button->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button_mouseUp);
-		this->panel2->Controls->Add(button);
+		button->MouseHover += gcnew System::EventHandler(this, &MyForm::button_mouseHover);
+
+
+ 		this->panel2->Controls->Add(button);
 		this->panel2->Controls->Add(textbox);
+		//this->panel2->Controls->Add(textbox1);
 	}
 	private: System::Void button_mouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 	{
@@ -314,12 +336,35 @@ namespace $safeprojectname$ {
 	{
 		activeControl = nullptr;
 	}
+	
+	
+	private: System::Void button_mouseHover(System::Object^ sender, System::EventArgs^ e)
+	{		
+		if (hoverFlag == 0)
+		{
+			Button^ clickedButton = (Button^)sender;
+			if (button->Tag != nullptr) {
+
+				MessageBox::Show(button->Tag->ToString(), "Message Box", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+			hoverFlag = 1;
+		}
+		else hoverFlag = 0;
+	}
 
 private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	if (button->Text == "4 WHEELER" || button->Text == "2 WHEELER")
 		button->Text = textbox->Text;
-	textbox->Visible = false;
+	delete textbox;
+	
+	if (moveFlag == 1 && button->BackColor == System::Drawing::Color::LightGreen)
+	{
+		String^ inputBoxResult = Interaction::InputBox("Enter Vehicle Number, Model, Entry time as csv", "Input Box", "hello world", 500, 300);
+		button->Tag = inputBoxResult;
+	}
+
+	//std::string content = marshal_as<std::string>(inputBoxResult);
 	if (moveFlag == 1)
 	{
 		Button^ clickedButton = (Button^)sender;
@@ -329,6 +374,7 @@ private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e)
 			clickedButton->BackColor = System::Drawing::Color::LightGreen;
 	}
 }
+
 
 /*private: System::Void textbox_Click(System::Object^ sender, System::EventArgs^ e) {
 	textbox->Visible = false;
@@ -356,6 +402,13 @@ private: System::Void delete_control(System::Object^ sender, System::EventArgs^ 
 {
 	if(moveFlag!=1)
 		delete button_to_delete;
+}
+private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void button_mouseHover(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	textbox1->Visible = true;
+}
+private: System::Void button1_mouseHover(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }
