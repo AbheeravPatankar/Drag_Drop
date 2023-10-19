@@ -179,9 +179,7 @@ namespace $safeprojectname$ {
 			this->button1->Tag = L"hello";
 			this->button1->Text = L"4 WHEELER";
 			this->button1->UseVisualStyleBackColor = false;
-			this->button1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);
-			this->button1->MouseHover += gcnew System::EventHandler(this, &MyForm::button1_mouseHover);
-			// 
+			this->button1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::button1_mouseDown);			// 
 			// panel2
 			// 
 			this->panel2->AllowDrop = true;
@@ -248,11 +246,6 @@ namespace $safeprojectname$ {
 		button->DoDragDrop(button->Text, DragDropEffects::Copy);
 	}
      
-	private: System::Void change_button_text(Button^ button, TextBox^ textbox)
-	{
-		
-
-	}
 	private: System::Void panel2_dragDrop(System::Object^ sender, System::Windows::Forms::DragEventArgs^ e) 
 	{		
 		button = gcnew Button();
@@ -315,7 +308,7 @@ namespace $safeprojectname$ {
 	}
 	private: System::Void button_mouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 	{
-		if (moveFlag == 0)
+		if (moveFlag == 0)  // moveFlag == 0 -> creation mode
 		{
 			if (activeControl == nullptr)
 				return;
@@ -329,8 +322,6 @@ namespace $safeprojectname$ {
 		activeControl = dynamic_cast<System::Windows::Forms::Control^>(sender);
 		button_to_delete = (Button^)sender;
 		prevPosition = e->Location;
-		/*if(button_to_delete->Text != "4 WHEELER" && button_to_delete->Text != "2 WHEELER")
-			button_to_delete->DoDragDrop(button_to_delete, DragDropEffects::Move);*/
 	}
 	private: System::Void button_mouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 	{
@@ -339,78 +330,86 @@ namespace $safeprojectname$ {
 	
 	
 	private: System::Void button_mouseHover(System::Object^ sender, System::EventArgs^ e)
-	{		
-		if (hoverFlag == 0)
+	{
+		int flag = hoverFlag;
+		Button^ clickedButton = (Button^)sender;
+		if (hoverFlag == 0 && clickedButton->BackColor == System::Drawing::Color::Crimson)
 		{
-			Button^ clickedButton = (Button^)sender;
-			if (button->Tag != nullptr) {
-
-				MessageBox::Show(button->Tag->ToString(), "Message Box", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			
+			if (clickedButton->Tag != NULL) 
+			{
+				MessageBox::Show(clickedButton->Tag->ToString(), "Message Box", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			hoverFlag = 1;
 		}
 		else hoverFlag = 0;
 	}
 
-private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	if (button->Text == "4 WHEELER" || button->Text == "2 WHEELER")
-		button->Text = textbox->Text;
-	delete textbox;
+	private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		Button^ button = (Button^)sender;
+		if (button->Text == "4 WHEELER" || button->Text == "2 WHEELER")
+			button->Text = textbox->Text;
+		delete textbox;
+		
+		if (moveFlag == 1 && button->BackColor == System::Drawing::Color::LightGreen)
+		{
+			String^ inputBoxResult = Interaction::InputBox("Enter Vehicle Number, Model, Entry time as csv", "Input Box", "hello world", 500, 300);
+			button->Tag = inputBoxResult;
+		}
 	
-	if (moveFlag == 1 && button->BackColor == System::Drawing::Color::LightGreen)
-	{
-		String^ inputBoxResult = Interaction::InputBox("Enter Vehicle Number, Model, Entry time as csv", "Input Box", "hello world", 500, 300);
-		button->Tag = inputBoxResult;
+		//std::string content = marshal_as<std::string>(inputBoxResult);
+		if (moveFlag == 1) //moveFlag == 1 indicates display mode
+		{
+			Button^ clickedButton = (Button^)sender;
+			if (clickedButton->BackColor == System::Drawing::Color::LightGreen)
+			{
+				clickedButton->BackColor = System::Drawing::Color::Crimson;
+				hoverFlag = 0;
+			}
+			else if (clickedButton->BackColor == System::Drawing::Color::Crimson)
+			{
+				clickedButton->BackColor = System::Drawing::Color::LightGreen;
+				hoverFlag = 1;
+			}
+		}
 	}
-
-	//std::string content = marshal_as<std::string>(inputBoxResult);
-	if (moveFlag == 1)
-	{
-		Button^ clickedButton = (Button^)sender;
-		if(clickedButton->BackColor == System::Drawing::Color::LightGreen)
-			clickedButton->BackColor = System::Drawing::Color::Crimson;
-		else if(clickedButton->BackColor == System::Drawing::Color::Crimson)
-			clickedButton->BackColor = System::Drawing::Color::LightGreen;
-	}
-}
-
-
-/*private: System::Void textbox_Click(System::Object^ sender, System::EventArgs^ e) {
-	textbox->Visible = false;
-}*/
-private: System::Void map_display(System::Object^ sender, System::EventArgs^ e) 
-{
 	
-	if (moveFlag == 0)
+	
+	/*private: System::Void textbox_Click(System::Object^ sender, System::EventArgs^ e) {
+		textbox->Visible = false;
+	}*/
+	private: System::Void map_display(System::Object^ sender, System::EventArgs^ e) 
 	{
-		moveFlag = 1;
-		panel1->Visible = false;
-		button6->Visible = false;
-		button5->Text = "Back";
+		
+		if (moveFlag == 0)
+		{
+			moveFlag = 1;
+			panel1->Visible = false;
+			button6->Visible = false;
+			button5->Text = "Back";
+		}
+		else
+		{
+			moveFlag = 0;
+			panel1->Visible = true;
+			button6->Visible = true;
+			button5->Text = "Display";
+		}
 	}
-	else
+	
+	private: System::Void delete_control(System::Object^ sender, System::EventArgs^ e) 
 	{
-		moveFlag = 0;
-		panel1->Visible = true;
-		button6->Visible = true;
-		button5->Text = "Display";
+		if(moveFlag!=1)
+			delete button_to_delete;
 	}
-}
+	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void button_mouseHover(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		textbox1->Visible = true;
+	}
 
-private: System::Void delete_control(System::Object^ sender, System::EventArgs^ e) 
-{
-	if(moveFlag!=1)
-		delete button_to_delete;
-}
-private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void button_mouseHover(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-	textbox1->Visible = true;
-}
-private: System::Void button1_mouseHover(System::Object^ sender, System::EventArgs^ e) {
-}
 };
 }
-
+ 
 
