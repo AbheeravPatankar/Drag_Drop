@@ -12,25 +12,18 @@ namespace $safeprojectname$ {
 	using namespace Microsoft::VisualBasic;
 	int moveFlag = 0;
 	int hoverFlag = 0;
-	//waste
-	/// <summary>
-	/// Summary for MyForm
-	/// </summary>
+
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+
 		~MyForm()
 		{
 			if (components)
@@ -232,7 +225,8 @@ namespace $safeprojectname$ {
 			this->panel1->PerformLayout();
 			this->panel2->ResumeLayout(false);
 			this->ResumeLayout(false);
-
+			this->MinimumSize = System::Drawing::Size(this->Width, this->Height);
+			this->MaximumSize = System::Drawing::Size(this->Width, this->Height);
 		}
 #pragma endregion
 	private: System::Void panel2_dragEnter(System::Object^ sender, System::Windows::Forms::DragEventArgs^ e) 
